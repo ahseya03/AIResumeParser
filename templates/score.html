@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Scores</title>
+    <style>
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #87CEEB;
+        }
+
+        td.skills {
+            white-space: pre-wrap; /* This will make sure skills are displayed on separate lines */
+        }
+    </style>
+</head>
+<body>
+    <h2>Resume Scores</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Title</th>
+            <th>Score</th>
+            <th>Matched Skills</th>
+        </tr>
+        {% for score in scores %}
+        <tr>
+            <td>{{ score[0] }}</td>
+            <td>{{ score[1] }}</td>
+            <td>{{ score[2] }}</td>
+            <td>{{ score[3] }}</td>
+            <td class="skills">{{ score[4] | join(', ') }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

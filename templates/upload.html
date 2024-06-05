@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Resume</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f7fc;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        form {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+        }
+
+        textarea {
+            display: block;
+            width: 80%;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"],
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #87ceeb;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #87ceeb;
+        }
+
+        #cancelButton {
+            display: none;
+        }
+
+        .buttonContainer {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .buttonContainer button {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+<h2>Upload Resumes and Job Description</h2>
+<form id="uploadForm" method="post" enctype="multipart/form-data" action="{{ url_for('add_files_to_database') }}">
+
+    <div id="fileInputs">
+        <input type="file" name="file" multiple>
+    </div>
+    <div class="buttonContainer">
+        <button type="button" onclick="addFileInput()">Add More</button>
+        <button id="cancelButton" type="button" onclick="cancelFileInput()">Cancel</button>
+    </div>
+
+    <textarea name="job_description" rows="10" placeholder="Enter job description here..."></textarea>
+
+
+    <button type="button" onclick="finishUpload()">Finish</button>
+</form>
+
+<script>
+    function addFileInput() {
+        var fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.name = 'file';
+        document.getElementById('fileInputs').appendChild(fileInput);
+        if (document.getElementById('fileInputs').children.length > 1) {
+            document.getElementById('cancelButton').style.display = 'block';
+        }
+    }
+
+    function cancelFileInput() {
+        var fileInputs = document.getElementById('fileInputs');
+        if (fileInputs.children.length > 1) {
+            fileInputs.removeChild(fileInputs.lastChild);
+        }
+        if (fileInputs.children.length === 1) {
+            document.getElementById('cancelButton').style.display = 'none';
+        }
+    }
+
+    function finishUpload() {
+        document.getElementById('uploadForm').submit();
+    }
+</script>
+</body>
+</html>
